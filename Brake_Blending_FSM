@@ -1,0 +1,93 @@
+`timescale 1ns / 1ps
+
+
+module Brake_Blending_FSM(
+    input clk_50, reset,
+    // Inputs from your physical pedals (Assuming 8-bit ADCs, 0-255)
+    input accelerator_pressed,
+    input brake_pressed,
+    //------------------------
+    input wire signed [19:0] a_avg,
+    //------------------------
+    output reg [1:0] current_state,
+    output reg [1:0] control_signal
+    );
+//-------------------------------    
+// State Encoding
+    reg [1:0] state;
+    localparam DRIVE      = 2'd0;
+    localparam COAST      = 2'd1;
+    localparam SOFT_BRAKE = 2'd2;
+    localparam HARD_BRAKE = 2'd3;
+//------------------------------
+// State Encoding
+    localparam deploy      = 2'd0;  //for drive mode
+    localparam slowcharge  = 2'd1;  //for coast
+    localparam fastcharge = 2'd2;   //for light brake
+    localparam nocharge = 2'd3;  //for hardbrake
+//------------------------------
+// Threshold Values
+localparam signed [19:0] coast_thres      = -20'sd10;   // coasting: slight negative a
+localparam signed [19:0] softbrake_thres  = -20'sd30;   // soft brake: moderate decel
+localparam signed [19:0] hardbrake_thres  = -20'sd80;   // hard brake: strong decel
+    
+always @(posedge clk_50 or negedge reset)begin
+    if(!reset)begin
+       state <= DRIVE;
+       current_state <= DRIVE;
+       control_signal <= deploy;
+    end
+    else begin
+        case(state)
+            DRIVE : begin
+                if(accelerator_pressed && !brake_pressed) state <= DRIVE;
+                else begin
+                    if((a_avg < coast_thres) && !brake_pressed) state <= COAST;
+                    else if((a_avg < softbrake_thres) && brake_pressed) state <= SOFT_BRAKE;
+                    else if((a_avg < hardbrake_thres) && brake_pressed) state <= HARD_BRAKE;
+                    else state <= SOFT_BRAKE;
+                end
+            end 
+            COAST : begin
+                if(accelerator_pressed) state <= DRIVE;
+                else begin 
+                    if((a_avg < hardbrake_thres) && brake_pressed) state <= HARD_BRAKE;
+                    else if((a_avg < softbrake_thres) && brake_pressed) state <= SOFT_BRAKE;
+                    else state <= COAST;
+                end            
+            end
+            SOFT_BRAKE : begin
+                if(accelerator_pressed) state <= DRIVE;
+                else begin
+                    if(!brake_pressed) state <= COAST;
+                    else begin
+                        if((a_avg < hardbrake_thres) && brake_pressed) state <= HARD_BRAKE;
+                        else state <= SOFT_BRAKE;
+                    end
+                end
+            end
+            HARD_BRAKE : begin
+                if(accelerator_pressed) state <= DRIVE;
+                else begin
+                    if(!brake_pressed) state <= COAST;
+                    else begin
+                        if((a_avg >= softbrake_thres) && brake_pressed) state <= SOFT_BRAKE;
+                        else state <= HARD_BRAKE;
+                    end
+                end
+            end
+        endcase
+    current_state <= state;
+    end
+end
+
+always @(*) begin
+    case(state)
+        DRIVE      : control_signal = deploy;
+        COAST      : control_signal = slowcharge;
+        SOFT_BRAKE : control_signal = fastcharge;
+        HARD_BRAKE : control_signal = nocharge;
+        default    : control_signal = deploy;
+    endcase
+end
+endmodule
