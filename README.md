@@ -9,7 +9,7 @@
 ---
 
 <p align="center">
-  <img width="807" height="486" alt="Hardware Circuit Diagram" src="https://github.com/user-attachments/assets/19a63ad6-f3f1-4c3b-95e9-60f7f06ffe9e" />
+  <img width="806" height="485" alt="Hardware Circuit Diagram" src="https://github.com/user-attachments/assets/19a63ad6-f3f1-4c3b-95e9-60f7f06ffe9e" />
   <br/>
   <em>Fig 1: Hardware Proof-of-Concept wiring featuring a Basys 3 FPGA, BLDC motor driver, energy storage capacitors, and electromechanical relay switching.</em>
 </p>
