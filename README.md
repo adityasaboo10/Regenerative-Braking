@@ -6,7 +6,7 @@
 
 **[📥 View / Download Project Presentation (PPT)](./Regenerative-Braking.pdf)**
 
-![Hardware Circuit Diagram](image_e644af.jpg)
+![Hardware Circuit Diagram]("C:\Users\adisa\Downloads\circuit.jpeg")
 *Fig 1: Hardware Proof-of-Concept wiring featuring a Basys 3 FPGA, BLDC motor driver, energy storage capacitors, and electromechanical relay switching.*
 
 ---
