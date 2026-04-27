@@ -4,7 +4,7 @@
 
 ![FPGA](https://img.shields.io/badge/Control-FPGA-blue) ![BLDC](https://img.shields.io/badge/Motor-BLDC-green) ![Simulation](https://img.shields.io/badge/Simulation-MATLAB%2FSimulink-orange) ![Status](https://img.shields.io/badge/Status-Proof%20of%20Concept-yellow)
 
-**[📥 View / Download Project Presentation (PPT)](replace_with_your_ppt_link_here)**
+**[📥 View / Download Project Presentation (PPT)](./Regenerative-Braking.pdf)**
 
 ![Hardware Circuit Diagram](image_e644af.jpg)
 *Fig 1: Hardware Proof-of-Concept wiring featuring a Basys 3 FPGA, BLDC motor driver, energy storage capacitors, and electromechanical relay switching.*
