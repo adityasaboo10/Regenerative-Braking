@@ -4,10 +4,15 @@
 
 ![FPGA](https://img.shields.io/badge/Control-FPGA-blue) ![BLDC](https://img.shields.io/badge/Motor-BLDC-green) ![Simulation](https://img.shields.io/badge/Simulation-MATLAB%2FSimulink-orange) ![Status](https://img.shields.io/badge/Status-Proof%20of%20Concept-yellow)
 
-**[📥 View / Download Project Presentation (PPT)](./Regenerative-Braking.pdf)**
+**[📥 View / Download Project Presentation (PDF)](./Regenerative-Braking.pdf)**
 
-![Hardware Circuit Diagram]("C:\Users\adisa\Downloads\circuit.jpeg")
-*Fig 1: Hardware Proof-of-Concept wiring featuring a Basys 3 FPGA, BLDC motor driver, energy storage capacitors, and electromechanical relay switching.*
+---
+
+<p align="center">
+  <img width="807" height="486" alt="Hardware Circuit Diagram" src="https://github.com/user-attachments/assets/19a63ad6-f3f1-4c3b-95e9-60f7f06ffe9e" />
+  <br/>
+  <em>Fig 1: Hardware Proof-of-Concept wiring featuring a Basys 3 FPGA, BLDC motor driver, energy storage capacitors, and electromechanical relay switching.</em>
+</p>
 
 ---
 
@@ -73,7 +78,7 @@ The core logic has been refined into a 4-state machine to ensure smooth transiti
 Before hardware deployment, the system was mathematically modeled and validated in **MATLAB Simulink**. The simulation focused on:
 - BLDC Motor Drive characteristics under varying loads.
 - Hall Sensor Decoding and Commutation logic.
-- Back-EMF waveform analysis across all three phases ($e_a, e_b, e_c$).
+- Back-EMF waveform analysis across all three phases ($e_a$, $e_b$, $e_c$).
 - Current controller stability during the transition from motoring to generating.
 
 ---
@@ -83,12 +88,12 @@ Before hardware deployment, the system was mathematically modeled and validated 
 The hardware prototype (pictured above) successfully validated the logic and state transitions. However, utilizing physical relays for power routing exposed significant mechanical limitations:
 
 ### 1. Relay Switching Speed Bottleneck
-**Issue:** The proof-of-concept utilizes standard electromechanical relays to switch between the battery and the capacitor bank. Relays have a switching latency in the milliseconds, which is vastly too slow to capture high-frequency regenerative voltage spikes effectively.
-**Resolution:** The production design must replace mechanical relays with solid-state switches (High-speed MOSFETs or IGBTs) configured in an H-bridge or 3-phase inverter setup.
+**Issue:** Standard electromechanical relays have a switching latency in the milliseconds — vastly too slow to capture high-frequency regenerative voltage spikes effectively.  
+**Resolution:** Replace mechanical relays with solid-state switches (MOSFETs or IGBTs) configured in an H-bridge or 3-phase inverter setup.
 
 ### 2. Lack of Inertial Mass
-**Issue:** Without a physical flywheel or the actual mass of a vehicle attached to the motor, the rotor's inertia was too low. The motor stopped almost instantly when braking was applied, severely limiting the duration of the regeneration window.
-**Resolution:** For bench-testing, integrating a weighted flywheel to the motor shaft will artificially simulate vehicle mass and extend the regenerative braking duration for better data collection.
+**Issue:** Without a physical flywheel or actual vehicle mass, the rotor's inertia was too low. The motor stopped almost instantly when braking was applied, severely limiting the regeneration window.  
+**Resolution:** Integrating a weighted flywheel to the motor shaft will simulate vehicle mass and extend regenerative braking duration for better data collection.
 
 ---
 
@@ -96,8 +101,8 @@ The hardware prototype (pictured above) successfully validated the logic and sta
 
 - [ ] **Solid-State Upgrades:** Replace electromechanical relays with high-speed MOSFETs/IGBTs for instantaneous, bounce-free switching.
 - [ ] **Mechanical Simulation:** Add a flywheel to the BLDC motor to accurately simulate vehicle inertia and prolong the regen window.
-- [ ] **Bidirectional DC-DC Converter:** Implement a buck-boost converter to safely step up the back-EMF voltage so it can charge the battery even at low motor speeds.
-- [ ] **Adaptive Brake Blending:** Program the FPGA to dynamically balance regenerative braking torque with a mechanical friction brake servo based on the speed of brake pedal depression.
+- [ ] **Bidirectional DC-DC Converter:** Implement a buck-boost converter to safely step up back-EMF voltage so it can charge the battery even at low motor speeds.
+- [ ] **Adaptive Brake Blending:** Dynamically balance regenerative braking torque with a mechanical friction brake servo based on the speed of brake pedal depression.
 - [ ] **SoC Integration:** Add battery State-of-Charge (SoC) monitoring to prevent overcharging by automatically disabling regen when the battery is at 100%.
 
 ---
