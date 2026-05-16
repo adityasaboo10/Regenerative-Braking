@@ -18,12 +18,12 @@
 
 ## 👥 Team Members
 
-| Name | Roll Number |
-|------|-------------|
-| Digvijay Singh Pundir | 240002024 |
-| Aditya Sabooo | 240002006 |
-| Abhishek Mehta | 240002003 |
-| Devansh Chaudhary | 240002023 |
+| Name | 
+|------|
+| Digvijay Singh Pundir | 
+| Aditya Sabooo | 
+| Abhishek Mehta | 
+| Devansh Chaudhary |
 
 ---
 
