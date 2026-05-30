@@ -1,10 +1,10 @@
-# Regenerative Braking System 🔋⚡
+# Regenerative Braking System 
 
 > Capturing kinetic energy — converting deceleration into usable power
 
 ![FPGA](https://img.shields.io/badge/Control-FPGA-blue) ![BLDC](https://img.shields.io/badge/Motor-BLDC-green) ![Simulation](https://img.shields.io/badge/Simulation-MATLAB%2FSimulink-orange) ![Status](https://img.shields.io/badge/Status-Proof%20of%20Concept-yellow)
 
-**[📥 View / Download Project Presentation (PDF)](./Regenerative-Braking.pdf)**
+**[View / Download Project Presentation (PDF)](./Regenerative-Braking.pdf)**
 
 ---
 
@@ -16,7 +16,7 @@
 
 ---
 
-## 👥 Team Members
+## Team Members
 
 | Name | 
 |------|
@@ -27,7 +27,7 @@
 
 ---
 
-## 📌 Overview
+## Overview
 
 This project implements a **Kinetic Energy Recovery System (KERS)** designed for electric vehicles. During braking, kinetic energy that is traditionally lost as heat is captured via motor back-EMF and converted back into usable electrical energy. This system extends vehicle range without necessitating a larger battery capacity.
 
@@ -35,7 +35,7 @@ This project implements a **Kinetic Energy Recovery System (KERS)** designed for
 
 ---
 
-## 🧠 System Architecture
+## System Architecture
 
 ### Module 1 — FPGA Control Logic (Basys 3)
 The FPGA serves as the central processing unit for the system, offering deterministic, nanosecond-level response times:
@@ -48,8 +48,8 @@ The energy routing circuit toggles the flow of current based on the vehicle's st
 
 | Mode | Power Flow | Operational Logic |
 |------|-----------|-------------|
-| ⚡ **Motoring** | Battery → Motor | Inverter switches in standard 6-step commutation to drive the wheels. |
-| 🔄 **Regenerating** | Motor → Capacitor/Battery | Inverter switching is modulated to act as a boost converter, pushing back-EMF into the storage medium. |
+| **Motoring** | Battery → Motor | Inverter switches in standard 6-step commutation to drive the wheels. |
+| **Regenerating** | Motor → Capacitor/Battery | Inverter switching is modulated to act as a boost converter, pushing back-EMF into the storage medium. |
 
 ---
 
@@ -73,7 +73,7 @@ The core logic has been refined into a 4-state machine to ensure smooth transiti
 
 ---
 
-## 🧪 Simulation (MATLAB / Simulink)
+## Simulation (MATLAB / Simulink)
 
 Before hardware deployment, the system was mathematically modeled and validated in **MATLAB Simulink**. The simulation focused on:
 - BLDC Motor Drive characteristics under varying loads.
@@ -83,7 +83,7 @@ Before hardware deployment, the system was mathematically modeled and validated 
 
 ---
 
-## ⚠️ Hardware Implementation & Known Limitations
+## Hardware Implementation & Known Limitations
 
 The hardware prototype (pictured above) successfully validated the logic and state transitions. However, utilizing physical relays for power routing exposed significant mechanical limitations:
 
@@ -97,7 +97,7 @@ The hardware prototype (pictured above) successfully validated the logic and sta
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 - [ ] **Solid-State Upgrades:** Replace electromechanical relays with high-speed MOSFETs/IGBTs for instantaneous, bounce-free switching.
 - [ ] **Mechanical Simulation:** Add a flywheel to the BLDC motor to accurately simulate vehicle inertia and prolong the regen window.
