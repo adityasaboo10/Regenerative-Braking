@@ -53,7 +53,7 @@ The energy routing circuit toggles the flow of current based on the vehicle's st
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 1. **Sensing:** Hall effect sensors track the BLDC rotor position and compute angular velocity.
 2. **Decision Matrix:** The FPGA processes pedal/brake inputs alongside current velocity to determine the operational state (Drive, Coast, Soft Brake, Hard Brake).
@@ -107,6 +107,6 @@ The hardware prototype (pictured above) successfully validated the logic and sta
 
 ---
 
-## 📚 References
+## References
 
 - *"An FPGA based Regenerative Braking System of Electric Vehicle Driven by BLDC Motor"*
